@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NHS Surgery Risk Calculator</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+</head>
+<!-- styling the webpage using CSS -->
+<style>
+    html{
+        min-height: 50%;
+        background-color: #2C2F33;
+    }
+    body{
+        margin-top: 3%;
+        margin-left: 10%;
+        margin-right: 10%;
+        margin-bottom: 3%;
+    }
+    div, form, input, select, p { 
+        padding: 0;
+        margin: 0;
+        outline: none;
+        font-family: Roboto, Arial, sans-serif;
+        font-size: 14px;
+        color: #666;
+        line-height: 22px;
+    }
+    h1 {
+        margin: 15px;
+        border-radius: 15px;
+        font-weight: bold;
+    }
+    .testbox {
+        /* display: flex; */
+        justify-content: center;
+        align-items: center;
+        height: inherit;
+        padding: 3px;
+    }
+    .result p{
+        padding-top: 5%;
+        color:#095484;
+        text-align: center;
+        font-weight: 800;
+        font-size: 4vw;  
+    }
+    .result h2{
+        font-size: 4.5vw;
+        color: #2C2F33;
+        text-align: center;
+    }
+    form {
+        width: 100%;
+        padding: 20px;
+        background: #fff;
+        box-shadow: 0 2px 5px #ccc;
+        border-radius: 15px; 
+    }
+    button {
+        width: auto;
+        padding: 10px;
+        border: none;
+        -webkit-border-radius: 5px; 
+        -moz-border-radius: 5px; 
+        border-radius: 5px; 
+        background-color: #095484;
+        font-size: 16px;
+        color: #fff;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0666a3;
+    }
+    .btn-block {
+        margin-top: 20px;
+        text-align: center;
+    }
+    @media (min-width: 5px) {
+        .name-item, .drop-down {
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .name-item input, .drop-down input {
+            width: calc(50% - 20px);
+        }
+        .drop-down select {
+            width: calc(50% - 8px);
+        }
+    }
+</style>
+<body>
+    <div class="testbox">
+        <form method="GET" action="/">
+            <div style="background-color: #005EB8; color: #fff; padding: 2%; border-radius: 15px; display: flex;">
+                <h1 style="font-size: 2vw; display: flex; padding-top: 15px;">Surgery Risk Calculator</h1>
+                <img src="static\nhs-logo.jpg" alt="NHS logo" style="width: 242px; height: 111px; padding-left: 40%;">
+            </div>
+            <div class="result">
+                <p>Surgery Success Possibility</p>
+                <br>
+                <h2>{{ mortality_rate }}</h2>
+            </div>
+            <div class="btn-block">
+                <button type="submit">Home</button>
+            </div>
+        </form>
+        
+    </div>
+</body>
+</html>

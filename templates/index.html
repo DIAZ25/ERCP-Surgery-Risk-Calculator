@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NHS Surgery Risk Calculator</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+</head>
+<!-- styling the webpage using CSS -->
+<style>
+    html{
+        min-height: 50%;
+        background-color: #2C2F33;
+    }
+    body{
+        margin-top: 3%;
+        margin-left: 10%;
+        margin-right: 10%;
+        margin-bottom: 3%;
+    }
+    div, form, input, select, p { 
+        padding: 0;
+        margin: 0;
+        outline: none;
+        font-family: Roboto, Arial, sans-serif;
+        font-size: 14px;
+        color: #666;
+        line-height: 22px;
+    }
+    h1 {
+        margin: 15px;
+        border-radius: 15px;
+        font-weight: bold;
+    }
+    .testbox {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: inherit;
+        padding: 3px;
+    }
+    form {
+        width: 100%;
+        padding: 20px;
+        background: #fff;
+        box-shadow: 0 2px 5px #ccc;
+        border-radius: 15px; 
+    }
+    input, select, textarea {
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+    input {
+        width: calc(100% - 10px);
+        padding: 5px;
+    }
+    select {
+        width: 100%;
+        padding: 7px 0;
+        background: transparent;
+    }
+    p {
+        font-weight: 800;  
+    }
+    textarea {
+        width: calc(100% - 6px);
+    }
+    .item {
+        position: relative;
+        margin: 10px 0;
+    }
+    .item:hover p, .item:hover i {
+        color: #095484;
+    }
+    input:hover, select:hover, textarea:hover {
+        box-shadow: 0 0 5px 0 #095484;
+    }
+    input[type="date"]::-webkit-inner-spin-button {
+        display: none;
+    }
+    input[type="time"]::-webkit-inner-spin-button {
+        margin: 2px 22px 0 0;
+    }
+    .item i, input[type="date"]::-webkit-calendar-picker-indicator {
+        position: absolute;
+        font-size: 20px;
+        color: #a9a9a9;
+    }
+    .item i {
+        right: 1%;
+        top: 30px;
+        z-index: 1;
+    }
+    [type="date"]::-webkit-calendar-picker-indicator {
+        right: 0;
+        z-index: 2;
+        opacity: 0;
+        cursor: pointer;
+    }
+    .btn-block {
+        margin-top: 20px;
+        text-align: center;
+    }
+    button {
+        width: auto;
+        padding: 10px;
+        border: none;
+        -webkit-border-radius: 5px; 
+        -moz-border-radius: 5px; 
+        border-radius: 5px; 
+        background-color: #095484;
+        font-size: 16px;
+        color: #fff;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0666a3;
+    }
+    @media (min-width: 5px) {
+        .name-item, .drop-down {
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .name-item input, .drop-down input {
+            width: calc(50% - 20px);
+        }
+        .drop-down select {
+            width: calc(50% - 8px);
+        }
+    }
+    .slidecontainer {
+        width: 100%;
+    }
+    
+    .slider {
+        -webkit-appearance: none;
+        width: 50%;
+        height: 1px;
+        border-radius: 5px;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+    }
+    
+    .slider:hover {
+        opacity: 1;
+    }
+    
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: #005EB8;
+        cursor: pointer;
+    }
+    
+    .slider::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: #005EB8;
+        cursor: pointer;
+    }
+</style>
+<body>
+    <div class="testbox">
+        <form method="POST" action="/result">
+            <div style="background-color: #005EB8; color: #fff; padding: 2%; border-radius: 15px; display: flex;">
+                <h1 style="font-size: 2vw; display: flex; padding-top: 15px;">Surgery Risk Calculator</h1>
+                <img src="static\nhs-logo.jpg" alt="NHS logo" style="width: 242px; height: 111px; padding-left: 40%;">
+            </div>
+            <div class="item">
+                <p>Patient's Full Name</p>
+                <div class="name-item">
+                    <input type="text" name="first" placeholder="First" />
+                    <input type="text" name="last" placeholder="Last" />
+                </div>
+            </div>
+            <div class="item">
+                <div class="drop-down">
+                    <p>Age</p>
+                    <input type="text" name="age" placeholder="Age" />
+                </div>
+            </div>
+            
+            <div class="item">
+                <div class="drop-down">
+                    <p>Gender</p>
+                    <select name="gender">
+                        <option value="1">Male</option>
+                        <option value="0">Female</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- <br>
+            
+            <div class="drop-down">
+                <p>Heart Rate Minimum Day 1</p>
+                <br>
+                <div class="slidecontainer">
+                    <input name="hr_min_day1" type="range" min="41" max="107" value="66.6" class="slider" id="myRange">
+                    <p>Value: <span id="demo"></span></p>
+                </div>
+                <br>
+            </div>
+            
+            <script>
+                var slider = document.getElementById("myRange");
+                var output = document.getElementById("demo");
+                output.innerHTML = slider.value;
+                
+                slider.oninput = function() {
+                    output.innerHTML = this.value;
+                }
+            </script> -->
+            
+            
+            <div class="item">
+                <div class="drop-down">
+                    <p>Heart Rate Minimum (between 20 and 140)</p>
+                    <input type="text" name="hr_min_day1" value="72" min="20" max="140"/>
+                </div>
+            </div>
+            
+            <div class="item">
+                <div class="drop-down">
+                    <p>Heart Rate Maximum (between 50 and 180)</p>
+                    <input type="text" name="hr_max_day1" value="103" min="50" max="180" />
+                </div>
+            </div>
+            
+            <div class="item">
+                <div class="drop-down">
+                    <p>Blood Pressure Minimum (between 20 and 160)</p>
+                    <input type="text" name="sys_bp_min_day1" value="95" min="20" max="160" />
+                </div>
+            </div>
+            
+            <div class="item">
+                <div class="drop-down">
+                    <p>Blood Pressure Maximum (between 90 and 250)</p>
+                    <input type="text" name="sys_bp_max_day1" value="148" min="90" max="250" />
+                </div>
+            </div>
+            
+            <div class="item">
+                <p>Htncomplicn</p>
+                <select name="htncomplicn">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+            <div class="item">
+                <p>Thyroid Cancer</p>
+                <select name="thyroidcncr">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+            
+            <div class="btn-block">
+                <button type="submit">Calculate</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
